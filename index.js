@@ -7,7 +7,8 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 require('./passport-init');
 require("dotenv").config();
-const Reports = require('./Reports')
+const Report = require('./Report');
+const Logging = require('./Logging');
 
 app.use(cors());
 
@@ -33,7 +34,11 @@ const checkUserLoggedIn = (req, res, next) => {
 
 app.get('/', (req,res)=> res.send('Arigato!'));
 
-app.get('/welcome', checkUserLoggedIn,(req,res)=> res.send(`Wilkommen ${req.user.displayName}, ${req.user.emails[0].value}`));
+app.get('/welcome', checkUserLoggedIn,(req,res)=> {
+        let log = new Logging({email:req.user.emails[0].value, date: Date.now, apicalled:'Welcome'});
+        log.save();
+        res.send(`Wilkommen ${req.user.displayName}, ${req.user.emails[0].value}`);
+});
 
 app.get('/failed', (req,res)=> res.send('Failed to login'));
 
