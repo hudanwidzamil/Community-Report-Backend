@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
 
 const ReportSchema = mongoose.Schema({
-    judul: String,
-    isi: String,
+    laporan: String,
     tanggal: {
         type: Date,
         default: Date.now
     },
     lokasi: String,
     status: String,
-    penanggung_jawab: String,
     nama: String,
     email: String
 });
