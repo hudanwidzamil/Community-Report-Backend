@@ -13,7 +13,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/login/callback"
+    callbackURL: process.env.CALLBACK_URL
   },
   function(accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
